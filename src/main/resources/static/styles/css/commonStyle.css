@@ -1,0 +1,82 @@
+body {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #8a7be2;
+    background: center linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8) ), center url("https://klike.net/uploads/posts/2020-02/1581410453_2.jpeg");
+    text-shadow: 0px 3px 10px #8a2be266;
+}
+
+#ticked-picked {
+    font-size: 30px;
+}
+
+div {
+    font-size: 20px;
+}
+
+h1 {
+    font-size: 70px;
+}
+
+div.seance {
+    margin: 50px 25px;
+    padding: 50px;
+    border: 5px solid #8a7be2;
+    border-radius: 20px;
+    box-shadow: 0px 5px 70px #8a2be266, 0px 5px 70px #8a2be266 inset;
+}
+
+div.ticket {
+    margin: 5px;
+    width: 50px;
+    height: 50px;
+    border: 5px solid #8a7be2;
+    border-radius: 20px;
+    box-shadow: 0px 5px 50px #8a2be288, 0px 5px 30px #8a2be288 inset;
+    background: transparent;
+    transition: 0.1s;
+}
+
+div.boughtTicket {
+    border: 5px solid #3a2b42;
+    box-shadow: none;
+}
+
+div.ticket:hover {
+    margin: 3px;
+    width: 52px;
+    height: 52px;
+    background: center no-repeat url("https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/250px-Flag_of_Ukraine.svg.png");
+    cursor: pointer;
+}
+
+div.boughtTicket:hover {
+    margin: 5px;
+    width: 50px;
+    height: 50px;
+    background: transparent;
+    cursor: not-allowed;
+}
+
+form {
+    text-align: center;
+}
+
+button {
+    margin: 5px 10px;
+    padding: 10px 40px;
+    color: black;
+    background: #8a7be2;
+    border-width: 0;
+    border-radius: 25px;
+    transition: 0.1s;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+button:hover {
+    padding: 10px 60px;
+    cursor: pointer;
+}

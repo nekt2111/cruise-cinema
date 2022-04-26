@@ -7,16 +7,10 @@
 </head>
 <body>
 
-<h1>You really want to buy ticket for <span th:text="${seance.getName()}"></span></h1>
+<h1>You Cannot buy this ticket for <span th:text="${seance.getName()}"></span></h1>
 <h2>Ticket with №<span th:text="${ticket.getNumber()}">
 </span> on <span th:text="${ticket.getPlace().getRow()}"></span> row and <span
         th:text="${ticket.getPlace().getColumn()}"></span> column</h2>
-<h2>Price for ticket is <span th:text="${ticket.getPrice()}"></span></h2>
-<form method="POST" th:action="@{/ticket/buy}">
-    <button>Confirm</button>
-    <input type="hidden" name="seanceId" th:value="${seance.getId()}">
-    <input type="hidden" name="ticketNumber" th:value="${ticket.getNumber()}">
-</form>
 <form th:action="@{/ticket/select}">
     <button id="cancelBtn">Cancel</button>
     <input type="hidden" name="seanceId" th:value="${seance.getId()}">

@@ -1,7 +1,9 @@
 const tickets = document.getElementsByClassName("ticket")
 
 for (let ticket of tickets) {
-    ticket.addEventListener('click',pickTicket);
+    if (!ticket.classList.contains("boughtTicket")) {
+        ticket.addEventListener('click', pickTicket);
+    }
 }
 
 function pickTicket(){
