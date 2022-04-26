@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Cruise Cinema</title>
+    <link th:href="@{/styles/css/commonStyle.css}" rel="stylesheet" />
 </head>
 <body>
 
@@ -10,8 +11,8 @@
 <h2>Place where all movies are better :)</h2>
 
 <h3>All seances for today</h3>
-<div class="seances" th:each="seance : ${seances}">
-    <div class="seance" th:id="${seance.getId()}">
+<div class="seances">
+    <div class="seance" th:each="seance : ${seances}" th:id="${seance.getId()}">
         <a th:href="@{'/seance/' + ${seance.getId()}}"class="seance-name" th:text="${seance.getName()}"></a>
         <div class="seance-date" th:text="${seance.getDate()}"></div>
         <div class="seance-time" th:text="${seance.getTime()}"></div>

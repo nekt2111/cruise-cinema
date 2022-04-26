@@ -34,9 +34,15 @@ public class TicketController {
     public String confirmBuyingTicket(@RequestParam Integer seanceId,
                                       @RequestParam Integer ticketNumber,
                                       Model model){
-        model.addAttribute("seance",seanceService.findSeanceById(seanceId));
-        model.addAttribute("ticket",ticketService.getTicketByNumber(seanceId,ticketNumber));
-        return "confirmBuyTicket";
+        var ticket = ticketService.getTicketByNumber(seanceId,ticketNumber);
+        model.addAttribute("seance", seanceService.findSeanceById(seanceId));
+        model.addAttribute("ticket", ticket);
+
+        if (ticket.isBought()) {
+            return "denyBuyTicket";
+        } else {
+            return "confirmBuyTicket";
+        }
     }
 
 
