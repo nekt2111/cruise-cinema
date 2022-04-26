@@ -5,11 +5,17 @@
     <title>Manage tickets</title>
 </head>
 <body>
-<h1>Manage tickets</h1>
+<div th:if="${!wrongRequest}">
+<h1>Manage tickets for seance <span th:text="${seanceName}"></span></h1>
 <form method="POST" th:action="@{/ticket/admin/generateTickets}">
     <input type="hidden" th:value="${seanceId}" name="seanceId">
     <input placeholder="amountOfTickets" name="amountOfTickets" id="amountOfTickets">
+    <input placeholder="priceForTickets" name="priceForTickets" id="priceForTickets">
     <button type="submit">Submit</button>
 </form>
+</div>
+<div th:if="${wrongRequest}">
+    Seance doesn't exists!
+</div>
 </body>
 </html>

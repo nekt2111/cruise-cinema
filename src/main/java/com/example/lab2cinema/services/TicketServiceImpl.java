@@ -31,6 +31,11 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    public void updatePriceForAllTicketsOnSeance(int seanceId, int newPrice) {
+        ticketRepo.changePriceForAllTickets(seanceId,newPrice);
+    }
+
+    @Override
     public void generateTicketsForSeance(int seanceId, int amountOfTickets) {
         this.ticketRepo.generateTickets(seanceId,amountOfTickets);
     }

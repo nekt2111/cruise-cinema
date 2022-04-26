@@ -49,14 +49,24 @@ public class TicketController {
 
     @GetMapping("/admin/manage/{seanceId}")
     public String manageTicketsForSeance(@PathVariable int seanceId, Model model){
-        model.addAttribute("seanceId",seanceId);
+        Seance seance = seanceService.findSeanceById(seanceId);
+        if(seance == null){
+            model.addAttribute("wrongRequest",true);
+        }
+        else {
+            model.addAttribute("seanceId", seanceId);
+            model.addAttribute("seanceName", seance.getName());
+            model.addAttribute("wrongRequest",false);
+        }
         return "manageTickets";
     }
 
     @PostMapping("/admin/generateTickets")
     public String generateTicketsForSeance(@RequestParam int seanceId,
-                                           @RequestParam int amountOfTickets) {;
+                                           @RequestParam int amountOfTickets,
+                                           @RequestParam int priceForTickets) {;
         ticketService.generateTicketsForSeance(seanceId,amountOfTickets);
+        ticketService.updatePriceForAllTicketsOnSeance(seanceId,priceForTickets);
         return "redirect:/";
     }
 }
