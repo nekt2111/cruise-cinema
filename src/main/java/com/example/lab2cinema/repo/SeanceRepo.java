@@ -1,7 +1,6 @@
 package com.example.lab2cinema.repo;
 
 import com.example.lab2cinema.model.Seance;
-import com.example.lab2cinema.model.Ticket;
 
 import java.util.List;
 

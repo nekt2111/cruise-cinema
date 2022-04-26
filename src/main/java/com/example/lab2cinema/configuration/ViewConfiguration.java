@@ -15,5 +15,4 @@ public class ViewConfiguration {
         engine.setTemplateResolver(templateResolver);
         return engine;
     }
-
 }

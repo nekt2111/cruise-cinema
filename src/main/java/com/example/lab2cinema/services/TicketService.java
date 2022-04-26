@@ -1,6 +1,5 @@
 package com.example.lab2cinema.services;
 
-import com.example.lab2cinema.model.Seance;
 import com.example.lab2cinema.model.Ticket;
 
 import java.util.List;
