@@ -1,0 +1,26 @@
+
+.tickets{
+    display: grid;
+    grid-template-rows: repeat(4,50px);
+    grid-template-columns: repeat(10,50px);
+    grid-gap: 10px;
+    margin-bottom: 50px;
+}
+
+.ticket{
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+}
+
+.boughtTicket {
+    color: red;
+}
+
+.bookedTicket {
+    color: yellow;
+}

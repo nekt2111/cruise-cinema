@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage tickets</title>
+</head>
+<body>
+<h1>Manage tickets</h1>
+<form method="POST" th:action="@{/ticket/admin/generateTickets}">
+    <input type="hidden" th:value="${seanceId}" name="seanceId">
+    <input placeholder="amountOfTickets" name="amountOfTickets" id="amountOfTickets">
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

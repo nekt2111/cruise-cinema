@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cruise Cinema</title>
+</head>
+<body>
+
+<h1>Cruise Cinema</h1>
+<h2>Place where all movies are better :)</h2>
+
+<h3>All seances for today</h3>
+<div class="seances" th:each="seance : ${seances}">
+    <div class="seance" th:id="${seance.getId()}">
+        <a th:href="@{'/seance/' + ${seance.getId()}}"class="seance-name" th:text="${seance.getName()}"></a>
+        <div class="seance-date" th:text="${seance.getDate()}"></div>
+        <div class="seance-time" th:text="${seance.getTime()}"></div>
+        <div class="seance-description" th:text="${seance.getDescription()}"></div>
+    </div>
+</div>
+</body>
+</html>

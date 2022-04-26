@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Buy ticket</title>
+    <link th:href="@{/styles/css/buyTickets.css}" rel="stylesheet" />
+</head>
+<body>
+<h1>Tickets for seance <span th:text="${seanceName}"></span></h1>
+<div class="tickets">
+    <div class="ticket" th:each="ticket:${tickets}" th:text="${ticket.getNumber()}" th:classappend="(${ticket.isBought()} ? boughtTicket: '')">
+    </div>
+</div>
+<form th:action="@{/ticket/confirm}">
+    <div>You picked ticket with number: </div>
+    <span class="ticket-picked" id="ticked-picked" name="ticketNumber"></span>
+    <input type="hidden" name="seanceId" th:value="${seanceId}">
+    <input type="hidden" name="ticketNumber" id="pickedNumberInput">
+    <button>Buy</button>
+</form>
+</body>
+<script type="text/javascript" th:src="@{/js/buyTicket.js}"></script>
+</html>

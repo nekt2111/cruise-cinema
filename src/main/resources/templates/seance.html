@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cruise Cinema</title>
+</head>
+<body>
+    <h1 th:text="${seance.getName()}"></h1>
+    <h2 th:text="${seance.getDate()}"></h2>
+    <h2 th:text="${seance.getTime()}"></h2>
+    <h2>Description:</h2>
+    <h2 th:text="${seance.getDescription()}"></h2>
+    <h3>Amount of tickets: <span th:text="${tickets.size()}"></span></h3>
+    <h3>Tickets left: <span th:text="${tickets.size() - amountOfBoughtTickets}"></span></h3>
+    <form th:action="@{/ticket/select}">
+        <input type="hidden" name="seanceId" id="seanceId" th:value="${seance.getId()}">
+        <button type="submit">Buy ticket</button>
+    </form>
+</body>
+</html>

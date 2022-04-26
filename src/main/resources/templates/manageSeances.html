@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manages seances</title>
+</head>
+<body>
+<div class="seances" th:each="seance : ${seances}">
+    <div class="seance" th:id="${seance.getId()}">
+        <a th:href="@{'/seance/admin/manage/' + ${seance.getId()}}"class="seance-name" th:text="${seance.getName()}"></a>
+        <div class="seance-date" th:text="${seance.getDate()}"></div>
+        <div class="seance-time" th:text="${seance.getTime()}"></div>
+        <div class="seance-description" th:text="${seance.getDescription()}"></div>
+    </div>
+</div>
+<form th:action="@{'/seance/admin/add'}">
+    <button>Add new seance</button>
+</form>
+</body>
+</html>
