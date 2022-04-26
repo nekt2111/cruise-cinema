@@ -26,6 +26,7 @@ public class TicketController {
         model.addAttribute("seanceName",seance.getName());
         model.addAttribute("tickets",ticketService.findTicketsBySeanceId(seanceId));
         model.addAttribute("seanceId",seanceId);
+        System.out.println(this.ticketService.findTicketsBySeanceId(seanceId));
 
         return "ticket";
     }
@@ -35,6 +36,7 @@ public class TicketController {
                                       @RequestParam Integer ticketNumber,
                                       Model model){
         var ticket = ticketService.getTicketByNumber(seanceId,ticketNumber);
+        System.out.println(ticket);
         model.addAttribute("seance", seanceService.findSeanceById(seanceId));
         model.addAttribute("ticket", ticket);
 
@@ -51,13 +53,22 @@ public class TicketController {
                             @RequestParam Integer ticketNumber,
                             @RequestParam String userEmail,
                             Model model){
-        ticketService.buyTicket(seanceId,ticketNumber);
-        Ticket ticket = ticketService.getTicketByNumber(seanceId,ticketNumber);
-        ticket.setUserEmail(userEmail);
-        Seance seance = seanceService.findSeanceById(seanceId);
 
-        model.addAttribute("seance",seance);
-        model.addAttribute("ticket",ticket);
+
+        Ticket ticket = ticketService.getTicketByNumber(seanceId,ticketNumber);
+        boolean tickedWasBought = false;
+        if(!ticket.isBought()) {
+            ticket.setUserEmail(userEmail);
+            ticketService.buyTicket(seanceId, ticketNumber);
+            Seance seance = seanceService.findSeanceById(seanceId);
+
+            model.addAttribute("seance", seance);
+            model.addAttribute("ticket", ticket);
+            tickedWasBought = true;
+        }
+
+        model.addAttribute("ticketWasBought",tickedWasBought);
+
         return "buyPage";
     }
 

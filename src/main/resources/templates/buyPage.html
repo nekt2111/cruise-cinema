@@ -6,6 +6,7 @@
     <link th:href="@{/styles/css/commonStyle.css}" rel="stylesheet" />
 </head>
 <body>
+<div th:if="${ticketWasBought}">
 <h1>Thank you for buying ticket <span th:text="${ticket.getUserEmail()}"></span></h1>
 <h2>You bought ticket with number <span th:text="${ticket.getNumber()}"></span></h2>
 <h2>on seance <span th:text="${seance.getName()}"></span></h2>
@@ -13,5 +14,7 @@
 <h2>on <span th:text="${seance.getTime()}"></span></h2>
 <h2>Ticket was sent you to the email. Have a great movie :)</h2>
 <a href="/">Back home</a>
+</div>
+<div th:if="${!ticketWasBought}">Ticket was already bought. Sorry</div>
 </body>
 </html>
