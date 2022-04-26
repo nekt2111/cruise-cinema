@@ -9,6 +9,7 @@ public class Ticket {
     private int number;
     private Place place;
     private int seanceId;
+    private int price;
     private TicketStatus status;
 
     public boolean isBought(){

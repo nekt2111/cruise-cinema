@@ -35,7 +35,7 @@ public class FakeTicketRepo implements TicketRepo{
         ArrayList<Ticket> tickets = new ArrayList<>();
 
         for (int i = 0; i < amountOfTickets ; i++) {
-            tickets.add(new Ticket(i + 1,new Place(i + 1,i%5 + 1,i%10 + 1),seanceId, TicketStatus.NotBought));
+            tickets.add(new Ticket(i + 1,new Place(i + 1,i%5 + 1,i%10 + 1),seanceId, 100,TicketStatus.NotBought));
         }
 
         ticketsForAllSeances.put(seanceId,tickets);
