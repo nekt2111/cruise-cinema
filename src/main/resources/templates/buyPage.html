@@ -5,7 +5,12 @@
     <title>Thank for buying ticket</title>
 </head>
 <body>
-<h1>Thank you for buying ticket</h1>
+<h1>Thank you for buying ticket <span th:text="${ticket.getUserEmail()}"></span></h1>
+<h2>You bought ticket with number <span th:text="${ticket.getNumber()}"></span></h2>
+<h2>on seance <span th:text="${seance.getName()}"></span></h2>
+<h2>that will be <span th:text="${seance.getDate()}"></span></h2>
+<h2>on <span th:text="${seance.getTime()}"></span></h2>
+<h2>Ticket was sent you to the email. Have a great movie :)</h2>
 <a href="/">Back home</a>
 </body>
 </html>

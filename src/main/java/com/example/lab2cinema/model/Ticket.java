@@ -11,6 +11,7 @@ public class Ticket {
     private int seanceId;
     private int price;
     private TicketStatus status;
+    private String userEmail;
 
     public boolean isBought(){
         return this.getStatus() == TicketStatus.Bought;

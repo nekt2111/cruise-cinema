@@ -1,6 +1,7 @@
 package com.example.lab2cinema.controllers;
 
 import com.example.lab2cinema.model.Seance;
+import com.example.lab2cinema.model.Ticket;
 import com.example.lab2cinema.repo.SeanceRepo;
 import com.example.lab2cinema.repo.TicketRepo;
 import com.example.lab2cinema.services.SeanceService;
@@ -42,8 +43,17 @@ public class TicketController {
 
 
     @PostMapping("/buy")
-    public String buyTicket(@RequestParam Integer seanceId,@RequestParam Integer ticketNumber){
+    public String buyTicket(@RequestParam Integer seanceId,
+                            @RequestParam Integer ticketNumber,
+                            @RequestParam String userEmail,
+                            Model model){
         ticketService.buyTicket(seanceId,ticketNumber);
+        Ticket ticket = ticketService.getTicketByNumber(seanceId,ticketNumber);
+        ticket.setUserEmail(userEmail);
+        Seance seance = seanceService.findSeanceById(seanceId);
+
+        model.addAttribute("seance",seance);
+        model.addAttribute("ticket",ticket);
         return "buyPage";
     }
 
