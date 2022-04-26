@@ -12,7 +12,7 @@
         th:text="${ticket.getPlace().getColumn()}"></span> column</h2>
 <h2>Price for ticket is <span th:text="${ticket.getPrice()}"></span></h2>
 <form method="POST" th:action="@{/ticket/buy}">
-    <input type="text" name="userEmail" placeholder="Write your email">
+    <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$" name="userEmail" placeholder="Write your email">
     <button>Confirm</button>
     <input type="hidden" name="seanceId" th:value="${seance.getId()}">
     <input type="hidden" name="ticketNumber" th:value="${ticket.getNumber()}">

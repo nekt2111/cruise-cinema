@@ -6,8 +6,8 @@
     <link th:href="@{/styles/css/commonStyle.css}" rel="stylesheet" />
 </head>
 <body>
-<div class="seances" th:each="seance : ${seances}">
-    <div class="seance" th:id="${seance.getId()}">
+<div class="seances">
+    <div class="seance" th:each="seance : ${seances}" th:id="${seance.getId()}">
         <a th:href="@{'/seance/admin/manage/' + ${seance.getId()}}"class="seance-name" th:text="${seance.getName()}"></a>
         <div class="seance-date" th:text="${seance.getDate()}"></div>
         <div class="seance-time" th:text="${seance.getTime()}"></div>

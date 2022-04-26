@@ -69,14 +69,38 @@ button {
     padding: 10px 40px;
     color: black;
     background: #8a7be2;
-    border-width: 0;
+    border: 2px solid #8a7be2;
     border-radius: 25px;
     transition: 0.1s;
     font-weight: bold;
     font-size: 20px;
+    transition: 0.1s;
+}
+
+button:disabled {
+    background: transparent;
 }
 
 button:hover {
     padding: 10px 60px;
     cursor: pointer;
+}
+
+button:disabled:hover {
+    padding: 10px 40px;
+    cursor: not-allowed;
+}
+
+input {
+    font-size: 20px;
+    border: 2px solid #8a7be2;
+    border-radius: 15px;
+    background: black;
+    padding: 5px 4px;
+    color: #8a7be2;
+    transition: 0.1s;
+}
+
+input:focus {
+    padding: 13px 10px;
 }
