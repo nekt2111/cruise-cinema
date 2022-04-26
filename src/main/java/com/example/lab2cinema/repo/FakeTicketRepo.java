@@ -15,8 +15,6 @@ public class FakeTicketRepo implements TicketRepo{
 
     @Override
     public List<Ticket> findTicketsBySeanceId(Integer seanceId) {
-        System.out.println(seanceId);
-        System.out.println(ticketsForAllSeances);
         return ticketsForAllSeances.get(seanceId);
     }
 

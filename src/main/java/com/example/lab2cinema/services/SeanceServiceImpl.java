@@ -2,6 +2,7 @@ package com.example.lab2cinema.services;
 
 import com.example.lab2cinema.model.Seance;
 import com.example.lab2cinema.repo.SeanceRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,12 +10,8 @@ import java.util.List;
 @Service
 public class SeanceServiceImpl implements SeanceService {
 
+    @Autowired
     private SeanceRepo seanceRepo;
-
-    public SeanceServiceImpl(SeanceRepo seanceRepo){
-        this.seanceRepo = seanceRepo;
-    }
-
 
     @Override
     public Seance findSeanceById(Integer id) {

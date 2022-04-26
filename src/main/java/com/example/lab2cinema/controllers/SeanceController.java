@@ -65,18 +65,15 @@ public class SeanceController {
 
     @PostMapping("/admin/addSeance")
     public String addSeance(Seance seance, Model model) {
-        System.out.println(seance);
         int id = seanceService.addSeance(seance).getId();
         List<Seance> seances = this.seanceService.getAllSeance();
-        System.out.println(seances);
         model.addAttribute("seanceId",id);
         return String.format("redirect:/ticket/admin/manage/%s",seance.getId());
     }
 
 
     @PostMapping("/admin/update")
-    public String updateSeance(Seance seance, Model model) {
-        System.out.println(seance);
+    public String updateSeance(Seance seance, Model model) {;
         this.seanceService.updateSeance(seance);
         return "redirect:/";
     }

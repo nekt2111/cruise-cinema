@@ -3,6 +3,7 @@ package com.example.lab2cinema.services;
 import com.example.lab2cinema.model.Ticket;
 import com.example.lab2cinema.model.TicketStatus;
 import com.example.lab2cinema.repo.TicketRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +12,13 @@ import java.util.List;
 public class TicketServiceImpl implements TicketService {
 
     private TicketRepo ticketRepo;
-    public TicketServiceImpl(TicketRepo ticketRepo){
+
+    public TicketRepo getTicketRepo() {
+        return ticketRepo;
+    }
+
+    @Autowired
+    public void setTicketRepo(TicketRepo ticketRepo) {
         this.ticketRepo = ticketRepo;
     }
 

@@ -19,8 +19,5 @@
 
 .boughtTicket {
     color: red;
-}
-
-.bookedTicket {
-    color: yellow;
+    cursor: not-allowed;
 }
