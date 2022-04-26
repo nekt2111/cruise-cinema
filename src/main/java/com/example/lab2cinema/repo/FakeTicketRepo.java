@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
-
 @Repository
 public class FakeTicketRepo implements TicketRepo{
 
+    public static final int DEFAULT_PRICE = 100;
     private static final Map<Integer,List<Ticket>> ticketsForAllSeances = new HashMap<>();
 
     @Override
@@ -22,23 +22,28 @@ public class FakeTicketRepo implements TicketRepo{
     }
 
     @Override
-    public void generateTickets(int seanceId,int amountOfTickets){
-        int maxRow = 5;
-        int maxColumn = 10;
+    public void generateTickets(int seanceId, int amountOfTickets) {
+        final int maxRow = 5;
+        final int maxColumn = 10;
 
-        int maxAmountOfTickets = maxColumn * maxRow;
+        final int maxAmountOfTickets = maxColumn * maxRow;
 
-        if(maxAmountOfTickets < amountOfTickets){
+        if (amountOfTickets > maxAmountOfTickets) {
             throw new IllegalArgumentException("Amount of tickets is bigger than we can afford");
         }
 
-        ArrayList<Ticket> tickets = new ArrayList<>();
+        var tickets = new ArrayList<Ticket>();
 
-        for (int i = 0; i < amountOfTickets ; i++) {
-            tickets.add(new Ticket(i + 1,new Place(i + 1,i%5 + 1,i%10 + 1),seanceId, 100,TicketStatus.NotBought));
+        for (int i = 1; i <= amountOfTickets; i++) {
+
+
+            final var place = Place.fromNumber(i, maxColumn);
+            final var ticket = new Ticket(i, place, seanceId, DEFAULT_PRICE, TicketStatus.NotBought);
+
+            tickets.add(ticket);
         }
 
-        ticketsForAllSeances.put(seanceId,tickets);
+        ticketsForAllSeances.put(seanceId, tickets);
     }
 
     @Override
