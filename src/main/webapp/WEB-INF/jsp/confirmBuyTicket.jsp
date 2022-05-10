@@ -3,22 +3,25 @@
 <html>
 <head>
     <link href="<c:url value="../../resources/css/commonStyle.css"/>" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <title>Cruise Cinema</title>
+</head>
 <body>
-<h1>You really want to buy ticket for <span th:text="${seance.getName()}"></span></h1>
-<h2>Ticket with №<span th:text="${ticket.getNumber()}">
-</span> on <span th:text="${ticket.getPlace().getRow()}"></span> row and <span
-        th:text="${ticket.getPlace().getColumn()}"></span> column</h2>
-<h2>Price for ticket is <span th:text="${ticket.getPrice()}"></span></h2>
-<form method="POST" th:action="@{/ticket/buy}">
+<h1>You really want to buy ticket for <span><c:out value="${seance.name}"/></span></h1>
+<h2>Ticket with №<span><c:out value="${ticket.number}"/>
+</span> on <span><c:out value="${ticket.getPlace().getRow()}"/></span> row and <span>
+    <c:out value="${ticket.getPlace().getColumn()}"/> </span> column</h2>
+<h2>Price for ticket is <span><c:out value="${ticket.price}"/> </span></h2>
+<form method="POST" action="/ticket/buy">
     <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$" name="userEmail" placeholder="Write your email">
     <button>Confirm</button>
-    <input type="hidden" name="seanceId" th:value="${seance.getId()}">
-    <input type="hidden" name="ticketNumber" th:value="${ticket.getNumber()}">
+    <input type="hidden" name="seanceId" value="${seance.id}">
+    <input type="hidden" name="ticketNumber" value="${ticket.number}">
 </form>
-<form th:action="@{/ticket/select}">
+<form action="/ticket/select">
     <button id="cancelBtn">Cancel</button>
-    <input type="hidden" name="seanceId" th:value="${seance.getId()}">
+    <input type="hidden" name="seanceId" value="${seance.id}">
 </form>
 </body>
-<script type="text/javascript" th:src="@{/js/confirmTicket.js}"></script>
+<script type="text/javascript" src="/js/confirmTicket.js"></script>
 </html>

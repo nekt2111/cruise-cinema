@@ -10,7 +10,7 @@
 <h1>Tickets for seance <span><c:out value="${seanceName}"></c:out></span></h1>
 <div class="tickets">
     <c:forEach items="${tickets}" var="ticket">
-        <div class="ticket" class="${ticket.isBought() ? 'boughtTicket' : ''}">
+        <div class="${ticket.isBought() ? 'ticket boughtTicket' : 'ticket'}">
                 ${ticket.number}
         </div>
     </c:forEach>
