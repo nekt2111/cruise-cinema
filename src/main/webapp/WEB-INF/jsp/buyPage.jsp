@@ -4,11 +4,8 @@
 <head>
     <link href="<c:url value="../../resources/css/commonStyle.css"/>" rel="stylesheet" type="text/css">
     <link href="<c:url value="../../resources/css/buyTickets.css"/>" rel="stylesheet" type="text/css">
-    <head>
-        <meta charset="UTF-8">
-        <title>Thank for buying ticket</title>
-        <link th:href="@{/styles/css/commonStyle.css}" rel="stylesheet"/>
-    </head>
+    <title>Thank for buying ticket</title>
+</head>
 <body>
 <c:choose>
     <c:when test="${ticketWasBought}">
