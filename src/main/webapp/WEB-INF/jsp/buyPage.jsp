@@ -1,0 +1,31 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
+<head>
+    <link href="<c:url value="../../resources/css/commonStyle.css"/>" rel="stylesheet" type="text/css">
+    <link href="<c:url value="../../resources/css/buyTickets.css"/>" rel="stylesheet" type="text/css">
+    <head>
+        <meta charset="UTF-8">
+        <title>Thank for buying ticket</title>
+        <link th:href="@{/styles/css/commonStyle.css}" rel="stylesheet"/>
+    </head>
+<body>
+<c:choose>
+    <c:when test="${ticketWasBought}">
+        <div>
+            <h1>Thank you for buying ticket <span>${ticket.getUserEmail()}</span></h1>
+            <h2>You bought ticket with number <span>${ticket.getNumber()}</span></h2>
+            <h2>on seance <span>${seance.getName()}</span></h2>
+            <h2>that will be <span>${seance.getDate()}</span></h2>
+            <h2>on <span>${seance.getTime()}</span></h2>
+            <h2>Ticket was sent you to the email. Have a great movie :)</h2>
+            <a href="/">Back home</a>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <div>Ticket was already bought. Sorry</div>
+    </c:otherwise>
+
+</c:choose>
+</body>
+</html>
