@@ -10,9 +10,9 @@
 <c:choose>
     <c:when test="${ticketWasBought}">
         <div>
-            <h1>Thank you for buying ticket <span>${ticket.getUserEmail()}</span></h1>
+            <h1>Thank you for buying ticket <c:out value="${ticket.getUserEmail()}"/></h1>
             <h2>You bought ticket with number <span>${ticket.getNumber()}</span></h2>
-            <h2>on seance <span>${seance.getName()}</span></h2>
+            <h2>on seance <c:out value="${seance.name}"/></h2>
             <h2>that will be <span>${seance.getDate()}</span></h2>
             <h2>on <span>${seance.getTime()}</span></h2>
             <h2>Ticket was sent you to the email. Have a great movie :)</h2>

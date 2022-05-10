@@ -7,13 +7,13 @@
 </head>
 <body>
 <h1>Manage seances:</h1>
-<form action="${doesSeanceAlreadyExists ? '/seance/admin/update' : '/seance/admin/addSeance'}" method="POST" th:object="${seance}">
-    <input placeholder="Film name" name="${seance.name}" value="${seance.getName()}">
-    <input placeholder="Film description" th:field="*{description}">
-    <input type="date" th:field="*{date}">
-    <input type="time" th:field="*{time}">
-    <input type="hidden" th:field="*{id}">
-    <button type="submit" th:text="${doesSeanceAlreadyExists ? 'Configure' : 'Add new'}"></button>
+<form action="${doesSeanceAlreadyExists ? '/seance/admin/update' : '/seance/admin/addSeance'}" method="POST">
+    <input placeholder="Film name" name="name" value="${seance.name}">
+    <input placeholder="Film description" name="description" value="${seance.description}">
+    <input type="date" name="date" value="${seance.date}">
+    <input type="time" name="time" value="${seance.time}">
+    <input type="hidden" name="id" value="${seance.id}">
+    <button type="submit">${doesSeanceAlreadyExists ? 'Configure' : 'Add new'}</button>
 </form>
 </body>
 </html>

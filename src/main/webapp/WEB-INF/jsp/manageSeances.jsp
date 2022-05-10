@@ -8,18 +8,18 @@
 </head>
 <body>
 <div class="seances">
+    <c:forEach items="${seances}" var="seance">
     <div class="seance" id="<c:out value="${seance.id}"/>">
-        <c:forEach items="${seances}" var="seance">
             <a href="/seance/admin/manage/<c:out value="${seance.getId()}"/>" class="seance-name">
-                <c:out value="seance.name"/>
+                <c:out value="${seance.name}"/>
             </a>
             <div class="seance-date"><c:out value="${seance.date}"/></div>
             <div class="seance-time"><c:out value="${seance.time}"/></div>
             <div class="seance-description"><c:out value="${seance.description}"/></div>
-        </c:forEach>
     </div>
+    </c:forEach>
 </div>
-<form action="${pageContext.request.contextPath}/seance/admin/add}">
+<form action="/seance/admin/add" method="GET">
     <button>Add new seance</button>
 </form>
 </body>

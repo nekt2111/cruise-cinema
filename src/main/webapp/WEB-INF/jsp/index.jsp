@@ -14,10 +14,10 @@
 <div class="seances">
     <c:forEach items="${seances}" var="seance">
         <div class="seance" id="${seance.id}">
-            <a href="/seance/${seance.id}" class="seance-name">${seance.name}</a>
-            <div class="seance-date">${seance.date}</div>
-            <div class="seance-time">${seance.time}</div>
-            <div class="seance-description">${seance.description}</div>
+            <a href="/seance/${seance.id}" class="seance-name"><c:out value="${seance.name}"/></a>
+            <div class="seance-date"><c:out value="${seance.date}"/></div>
+            <div class="seance-time"><c:out value="${seance.time}"/></div>
+            <div class="seance-description"><c:out value="${seance.description}"/></div>
         </div>
     </c:forEach>
 </div>
