@@ -12,6 +12,7 @@
     <c:forEach items="${tickets}" var="ticket">
         <div class="ticket" class="${ticket.isBought() ? 'boughtTicket' : ''}">
                 ${ticket.number}
+                ${ticket.isBought()}
         </div>
     </c:forEach>
 </div>
