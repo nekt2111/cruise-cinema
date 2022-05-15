@@ -20,7 +20,7 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model model){
 
-        List<Seance> seances = seanceService.getAllSeance();
+        List<Seance> seances = seanceService.getAllSeances();
 
        model.addAttribute("seances",seances);
 

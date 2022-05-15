@@ -2,6 +2,8 @@ package com.example.lab2cinema.services;
 
 import com.example.lab2cinema.model.Seance;
 import com.example.lab2cinema.repo.SeanceRepo;
+import com.example.lab2cinema.repo.model.Filter;
+import com.example.lab2cinema.repo.model.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +21,18 @@ public class SeanceServiceImpl implements SeanceService {
     }
 
     @Override
-    public List<Seance> getAllSeance() {
+    public List<Seance> getAllSeances() {
         return seanceRepo.findAll();
+    }
+
+    @Override
+    public List<Seance> getAllSeances(Page page) {
+        return seanceRepo.findAll(page);
+    }
+
+    @Override
+    public List<Seance> getAllSeances(Filter filter) {
+        return seanceRepo.findAll(filter);
     }
 
     @Override

@@ -50,7 +50,7 @@ public class SeanceController {
 
     @GetMapping("/admin/manage")
     public String manageSeances(Model model){
-        model.addAttribute("seances",seanceService.getAllSeance());
+        model.addAttribute("seances",seanceService.getAllSeances());
         return "manageSeances";
     }
 
@@ -66,7 +66,7 @@ public class SeanceController {
     @PostMapping("/admin/addSeance")
     public String addSeance(Seance seance, Model model) {
         int id = seanceService.addSeance(seance).getId();
-        List<Seance> seances = this.seanceService.getAllSeance();
+        List<Seance> seances = this.seanceService.getAllSeances();
         model.addAttribute("seanceId",id);
         return String.format("redirect:/ticket/admin/manage/%s",seance.getId());
     }

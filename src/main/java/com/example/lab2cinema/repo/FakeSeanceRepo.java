@@ -1,17 +1,25 @@
 package com.example.lab2cinema.repo;
 
 import com.example.lab2cinema.model.Seance;
+import com.example.lab2cinema.repo.model.Filter;
+import com.example.lab2cinema.repo.model.Page;
+import com.example.lab2cinema.repo.model.SortWay;
+import org.apache.logging.log4j.util.PropertySource;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.stream.Collectors;
+
 
 @Repository
-public class FakeSeanceRepo implements SeanceRepo{
+public class FakeSeanceRepo implements SeanceRepo {
 
     private static final Map<Integer,Seance> seances = new HashMap<>();
     private static int idSequence = 6;
+
+
 
     private TicketRepo ticketRepo;
     public FakeSeanceRepo(TicketRepo ticketRepo){
@@ -46,6 +54,71 @@ public class FakeSeanceRepo implements SeanceRepo{
     @Override
     public void deleteSeance(int seanceId) {
         seances.remove(seanceId);
+    }
+
+    @Override
+    public List<Seance> findAll(Page page) {
+
+        if ( (page.getPageSize() * page.getPageNumber()) - seances.size() <= seances.size()) {
+
+            int startIndex = getStartIndexForPagination(page);
+            int endIndex = startIndex + page.getPageSize();
+
+            return getPaginatedSeances(startIndex,endIndex);
+
+        }
+
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<Seance> findAll (Filter filter) {
+       List<Seance> filterSeances = new ArrayList<>(seances.values());
+       filterSeances.sort(Seance.getComparatorByName(filter.getFieldName()));
+
+       if(filter.getSortWay() != null && filter.getSortWay() == SortWay.DESC) {
+           Collections.reverse(filterSeances);
+       }
+
+       if (filter.getValue() != null) {
+            filterSeances = filterByValue(filter.getFieldName(),filter.getValue(),filterSeances);
+       }
+
+       return filterSeances;
+    }
+
+    private <T> List<Seance> filterByValue(String fieldName, String value, List<Seance> seances) {
+
+        switch (fieldName) {
+            case "name" :
+                return filterByName(value,seances);
+            default:
+                return filterByDate(LocalDate.parse(value),seances);
+        }
+
+    }
+
+    private List<Seance> filterByName (String name, List<Seance> seances) {
+        return seances.stream().filter(seance -> Objects.equals(seance.getName(), name)).collect(Collectors.toList());
+    }
+
+    private List<Seance> filterByDate (LocalDate date, List<Seance> seances) {
+        return seances.stream().filter(seance -> Objects.equals(seance.getDate(), date)).collect(Collectors.toList());
+    }
+
+
+    private int getStartIndexForPagination(Page page){
+        return (page.getPageNumber() * page.getPageSize()) - page.getPageSize() + 1;
+    }
+
+    private List<Seance> getPaginatedSeances(int startIndex, int endIndex) {
+        List<Seance> paginatedSeances = new ArrayList<>();
+        for (int i = startIndex; i < endIndex; i++) {
+            if (seances.get(i) != null) {
+                paginatedSeances.add(seances.get(i));
+            }
+        }
+        return paginatedSeances;
     }
 
     private void generateSeances(){

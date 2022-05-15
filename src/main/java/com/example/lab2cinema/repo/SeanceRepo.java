@@ -1,6 +1,8 @@
 package com.example.lab2cinema.repo;
 
 import com.example.lab2cinema.model.Seance;
+import com.example.lab2cinema.repo.model.Filter;
+import com.example.lab2cinema.repo.model.Page;
 
 import java.util.List;
 
@@ -10,4 +12,7 @@ public interface SeanceRepo {
     Seance addSeance(Seance seance);
     Seance updateSeance(Seance seance);
     void deleteSeance(int seanceId);
+
+    List<Seance> findAll(Page page);
+    List<Seance> findAll(Filter filter);
 }
