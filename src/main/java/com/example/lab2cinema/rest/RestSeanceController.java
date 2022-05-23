@@ -5,11 +5,9 @@ import com.example.lab2cinema.repo.model.Filter;
 import com.example.lab2cinema.repo.model.Page;
 import com.example.lab2cinema.repo.model.SortWay;
 import com.example.lab2cinema.services.SeanceService;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.file.Path;
 import java.util.List;
 
 @RestController
@@ -28,18 +26,18 @@ public class RestSeanceController {
         return seanceService.getAllSeances();
     }
 
-    @GetMapping("/filter={filterField}")
+    @GetMapping("/sort={sortField}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Seance> allFilteredSeances(@PathVariable String filterField) {
+    public List<Seance> allFilteredSeances(@PathVariable String sortField) {
         SortWay sortWay = SortWay.ASC;
 
         return seanceService.getAllSeances(Filter.builder()
-                .fieldName(filterField)
+                .fieldName(sortField)
                 .sortWay(sortWay)
                 .build());
     }
 
-    @GetMapping("/filter={filterField}/value={value}")
+    @GetMapping("/filter={filterField}/{value}")
     @ResponseStatus(HttpStatus.OK)
     public List<Seance> allFilteredSeances(@PathVariable String filterField, @PathVariable String value) {
         SortWay sortWay = SortWay.ASC;
@@ -51,7 +49,7 @@ public class RestSeanceController {
                 .build());
     }
 
-    @GetMapping("/page={pageNumber}")
+    @GetMapping("/page/{pageNumber}")
     @ResponseStatus(HttpStatus.OK)
     public List<Seance> allPaginatedSeances(@PathVariable String pageNumber) {
         System.out.println(pageNumber);

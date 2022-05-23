@@ -9,6 +9,6 @@ public interface TicketService {
     List<Ticket> findTicketsBySeanceId(Integer seanceId);
     Ticket buyTicket(Integer seanceId,Integer ticketNumber);
     Ticket getTicketByNumber(Integer seanceId, Integer ticketNumber);
-    void updatePriceForAllTicketsOnSeance(int seanceId, int newPrice);
+    List<Ticket> updatePriceForAllTicketsOnSeance(int seanceId, int newPrice);
     void generateTicketsForSeance(int seanceId, int amountOfTickets);
 }

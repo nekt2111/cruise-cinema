@@ -11,7 +11,7 @@ public interface TicketRepo {
 
     List<Ticket> findTicketsBySeanceId(Integer seanceId);
     void generateTickets(int seanceId, int amountOfTickets);
-    void changePriceForAllTickets(int seanceId, int newPrice);
+    List<Ticket> changePriceForAllTickets(int seanceId, int newPrice);
     Ticket changeTicketStatus(Integer seanceId, Integer ticketNumber, TicketStatus ticketStatus);
     Optional<Ticket> findTicketByNumber(Integer seanceId, Integer number);
 

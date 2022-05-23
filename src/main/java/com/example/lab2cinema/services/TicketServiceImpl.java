@@ -38,8 +38,8 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public void updatePriceForAllTicketsOnSeance(int seanceId, int newPrice) {
-        ticketRepo.changePriceForAllTickets(seanceId,newPrice);
+    public List<Ticket> updatePriceForAllTicketsOnSeance(int seanceId, int newPrice) {
+        return ticketRepo.changePriceForAllTickets(seanceId,newPrice);
     }
 
     @Override

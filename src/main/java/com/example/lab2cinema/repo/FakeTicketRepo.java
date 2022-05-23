@@ -44,8 +44,10 @@ public class FakeTicketRepo implements TicketRepo{
     }
 
     @Override
-    public void changePriceForAllTickets(int seanceId, int newPrice) {
-        ticketsForAllSeances.get(seanceId).stream().forEach(ticket -> ticket.setPrice(newPrice));
+    public List<Ticket> changePriceForAllTickets(int seanceId, int newPrice) {
+        List<Ticket> tickets = ticketsForAllSeances.get(seanceId);
+        tickets.forEach(ticket -> ticket.setPrice(newPrice));
+        return tickets;
     }
 
     @Override

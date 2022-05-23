@@ -5,9 +5,12 @@ import com.example.lab2cinema.model.Ticket;
 import com.example.lab2cinema.services.SeanceService;
 import com.example.lab2cinema.services.TicketService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -24,26 +27,29 @@ public class RestTicketController {
 
     @PostMapping("/buy")
     @ResponseStatus(HttpStatus.CREATED)
-    public Ticket buyTicket(@RequestParam Integer seanceId,
+    public ResponseEntity<Ticket> buyTicket(@RequestParam Integer seanceId,
                             @RequestParam Integer ticketNumber,
                             @RequestParam String userEmail) {
         Ticket ticket = ticketService.getTicketByNumber(seanceId, ticketNumber);
 
+        System.out.println(ticket);
+
         if (!ticket.isBought()) {
             ticket.setUserEmail(userEmail);
-            ticketService.buyTicket(seanceId, ticketNumber);
+            ticket = ticketService.buyTicket(seanceId, ticketNumber);
+            return new ResponseEntity<Ticket>(ticket,HttpStatus.CREATED);
         }
 
-        return ticket;
+        return new ResponseEntity(HttpStatus.CONFLICT);
     }
 
     @PostMapping("/admin/generate")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public void generateTicketsForSeance(@RequestParam int seanceId,
+    public ResponseEntity<List<Ticket>> ticketsForSeance(@RequestParam int seanceId,
                                          @RequestParam int amountOfTickets,
                                          @RequestParam int priceForTickets) {;
         ticketService.generateTicketsForSeance(seanceId,amountOfTickets);
-        ticketService.updatePriceForAllTicketsOnSeance(seanceId,priceForTickets);
+        List<Ticket> tickets = ticketService.updatePriceForAllTicketsOnSeance(seanceId,priceForTickets);
+        return new ResponseEntity(tickets,HttpStatus.CREATED);
     }
 
     @GetMapping("/seance")
