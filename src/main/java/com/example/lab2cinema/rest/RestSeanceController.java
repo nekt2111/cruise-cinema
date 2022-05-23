@@ -6,6 +6,7 @@ import com.example.lab2cinema.repo.model.Page;
 import com.example.lab2cinema.repo.model.SortWay;
 import com.example.lab2cinema.services.SeanceService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -57,9 +58,12 @@ public class RestSeanceController {
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Seance seance(@PathVariable String id) {
-        return seanceService.findSeanceById(Integer.parseInt(id));
+    public ResponseEntity<Seance> seance(@PathVariable String id) {
+        Seance seance = seanceService.findSeanceById(Integer.parseInt(id));
+        if(seance != null) {
+            return ResponseEntity.ok(seance);
+        }
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping()
