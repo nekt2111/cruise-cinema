@@ -47,38 +47,29 @@ public class TicketRepoImpl implements TicketRepo {
             },ticketMapper);
     }
 
-        @Override
-        public void generateTickets(int seanceId, int amountOfTickets) {
-            deleteAllTicketWithSeanceId(seanceId);
-
-            final int maxRow = 5;
-            final int maxColumn = 10;
-
-            final int maxAmountOfTickets = maxColumn * maxRow;
-
-            if (amountOfTickets > maxAmountOfTickets) {
-                throw new IllegalArgumentException("Amount of tickets is bigger than we can afford");
-            }
-
-
-            for (int i = 1; i <= amountOfTickets; i++) {
-
-                final var place = Place.fromNumber(i, maxColumn);
-
-                System.out.println(seanceId);
-
-                jdbcTemplate.update((Connection c) -> {
-                    PreparedStatement preparedStatement = c.prepareStatement(INSERT_TICKET);
-                    preparedStatement.setInt(1,place.getNumber());
-                    preparedStatement.setInt(2,seanceId);
-                    preparedStatement.setInt(3,DEFAULT_PRICE);
-                    preparedStatement.setInt(4, 1);
-                    preparedStatement.setString(5,null);
-                    return preparedStatement;
-                });
-
-            }
+    @Override
+    public void generateTickets(int seanceId, int amountOfTickets) {
+        deleteAllTicketWithSeanceId(seanceId);
+        final int maxRow = 5;
+        final int maxColumn = 10;
+        final int maxAmountOfTickets = maxColumn * maxRow;
+        if (amountOfTickets > maxAmountOfTickets) {
+            throw new IllegalArgumentException("Amount of tickets is bigger than we can afford");
         }
+        for (int i = 1; i <= amountOfTickets; i++) {
+            final var place = Place.fromNumber(i, maxColumn);
+            System.out.println(seanceId);
+            jdbcTemplate.update((Connection c) -> {
+                PreparedStatement preparedStatement = c.prepareStatement(INSERT_TICKET);
+                preparedStatement.setInt(1,place.getNumber());
+                preparedStatement.setInt(2,seanceId);
+                preparedStatement.setInt(3,DEFAULT_PRICE);
+                preparedStatement.setInt(4, 1);
+                preparedStatement.setString(5,null);
+                return preparedStatement;
+            });
+        }
+    }
 
     @Override
     public List<Ticket> changePriceForAllTickets(int seanceId, int newPrice) {
