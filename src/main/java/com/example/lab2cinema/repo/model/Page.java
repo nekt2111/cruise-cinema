@@ -12,7 +12,6 @@ public class Page {
     private Integer pageNumber;
     private Integer pageSize;
 
-
     private static final Integer DEFAULT_PAGE_SIZE = 3;
 
     public static Page createFromStrings(String offSet, String pageSize){
