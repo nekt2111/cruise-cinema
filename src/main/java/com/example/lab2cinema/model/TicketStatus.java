@@ -11,4 +11,12 @@ public enum TicketStatus {
         }
         throw new IllegalArgumentException();
     }
+
+    public int toInt() {
+        switch (this) {
+            case NotBought: return 0;
+            case Bought: return 1;
+            default: throw new IllegalArgumentException();
+        }
+    }
 }
