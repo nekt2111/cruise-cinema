@@ -28,6 +28,7 @@ public class TicketRepoImpl implements TicketRepo {
     private TicketMapper ticketMapper;
 
     private static final String SELECT_BY_SEANCE_ID = "SELECT * FROM ticket WHERE seance_id = ?;";
+    private static final String SELECT_BY_SEANCE_ID_AND_NUMBER = "SELECT * FROM ticket WHERE seance_id = ? AND number = ?;";
     private static final String UPDATE_PRICE = "UPDATE ticket SET price = ? WHERE seanceId = ?;";
     private static final String DELETE_BY_SEANCE_ID = "DELETE from ticket where seance_id = ?";
     private static final String INSERT_TICKET = "INSERT INTO ticket(number,seance_id,price,ticket_status,user_email) values (?,?,?,?,?)";
@@ -40,11 +41,11 @@ public class TicketRepoImpl implements TicketRepo {
 
     @Override
     public List<Ticket> findTicketsBySeanceId(Integer seanceId) {
-             return jdbcTemplate.query((Connection c) -> {
-                PreparedStatement preparedStatement = c.prepareStatement(SELECT_BY_SEANCE_ID);
-                preparedStatement.setInt(1, seanceId);
-                return preparedStatement;
-            },ticketMapper);
+        return jdbcTemplate.query((Connection c) -> {
+            PreparedStatement preparedStatement = c.prepareStatement(SELECT_BY_SEANCE_ID);
+            preparedStatement.setInt(1, seanceId);
+            return preparedStatement;
+        },ticketMapper);
     }
 
     @Override
@@ -97,8 +98,13 @@ public class TicketRepoImpl implements TicketRepo {
     }
 
     @Override
-    public Optional<Ticket> findTicketByNumber(Integer seanceId, Integer number) {
-        return Optional.empty();
+    public Optional<Tikcet> findTicketByNumber(Integer seanceId, Integer number) {
+        return jdbcTemplate.query((Connection c) -> {
+            PreparedStatement preparedStatement = c.prepareStatement(SELECT_BY_SEANCE_ID_AND_NUMBER);
+            preparedStatement.setInt(1, seanceId);
+            preparedStatement.setInt(2, number);
+            return preparedStatement;
+        },ticketMapper);
     }
 
     private void deleteAllTicketWithSeanceId(Integer seanceId) {
