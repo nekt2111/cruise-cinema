@@ -10,10 +10,30 @@ import java.util.Optional;
 
 @Repository
 @Primary
-public class TicketRepoImpl implements TicketRepo{
+public class TicketRepoImpl implements TicketRepo {
+    
+    private JdbcTemplate jdbcTemplate;
+
+    private static final String SELECT_BY_SEANCE_ID = "SELECT * FROM ticket WHERE seanceId = ?;";
+
+    public SeanceRepoImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+    
     @Override
     public List<Ticket> findTicketsBySeanceId(Integer seanceId) {
-        return null;
+        try {
+             return jdbcTemplate.query((Connection c) -> {
+                PreparedStatement preparedStatement = c.prepareStatement(SELECT_BY_SEANCE_ID);
+                preparedStatement.setInt(1, seanceId);
+                return preparedStatement;
+            },seanceRowMapper).get(0);
+
+        }
+        catch (EmptyResultDataAccessException e) {
+            System.out.println("We don't have such tickets");
+            return;
+        }
     }
 
     @Override

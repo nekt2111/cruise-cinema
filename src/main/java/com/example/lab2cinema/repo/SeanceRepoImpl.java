@@ -33,6 +33,7 @@ public class SeanceRepoImpl implements SeanceRepo {
     public SeanceRepoImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+    
     @Override
     public List<Seance> findAll() {
         return jdbcTemplate.query("SELECT * FROM seance;", seanceRowMapper);
