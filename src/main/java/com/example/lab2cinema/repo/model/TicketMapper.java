@@ -23,7 +23,7 @@ public class TicketMapper implements RowMapper<Ticket> {
     public Ticket mapRow(ResultSet rs, int rowNum) throws SQLException {
         Ticket ticket = new Ticket();
         ticket.setId(rs.getInt("id"));
-        ticket.setPlace(null); // todo
+        ticket.setPlace(Place.fromNumber(rs.getInt("number")));
         Seance seance = seanceRepo.getSeanceById(rs.getInt("seance_id"));
         ticket.setSeance(seance);
         ticket.setPrice(rs.getInt("price"));
