@@ -21,7 +21,7 @@ public class FakeTicketRepo implements TicketRepo{
 
     @Override
     public void generateTickets(int seanceId, int amountOfTickets) {
-        final int maxRow = 5;
+        /*final int maxRow = 5;
         final int maxColumn = 10;
 
         final int maxAmountOfTickets = maxColumn * maxRow;
@@ -41,9 +41,7 @@ public class FakeTicketRepo implements TicketRepo{
             final var ticket = new Ticket(i, place, new Seance(), DEFAULT_PRICE, TicketStatus.NotBought,null);
 
             tickets.add(ticket);
-        }
-
-        ticketsForAllSeances.put(seanceId, tickets);
+        }*/
     }
 
     @Override
@@ -62,9 +60,6 @@ public class FakeTicketRepo implements TicketRepo{
 
     @Override
     public Optional<Ticket> findTicketByNumber(Integer seanceId, Integer number) {
-        List<Ticket> ticketsForSeance = ticketsForAllSeances.get(seanceId);
-        return ticketsForSeance.stream()
-                .filter(ticket -> ticket.getNumber() == number)
-                .findFirst();
+        return null;
     }
 }
