@@ -21,8 +21,10 @@ public class SeanceRepoImpl implements SeanceRepo {
 
     private SeanceMapper seanceRowMapper = new SeanceMapper();
 
-    private static final String SELECT_BY_ID = "SELECT * FROM seance where id = ";
-    private static final String INSERT = "INSERT INTO seance(name, description,date,time) values (?,?,?,?)";
+    private static final String SELECT_BY_ID = "SELECT * FROM seance WHERE id = ?;";
+    private static final String SELECT_BY_PAGE = "SELECT * FROM seance LIMIT ? OFFSET ?";
+    private static final String INSERT = "INSERT INTO seance(name, description,date,time) values (?,?,?,?);";
+    private static final String DELETE = "DELETE FROM seance WHERE id = ?;";
 
     private static final String UPDATE_BY_ID = "UPDATE seance SET name = ?, description = ?, date = ?, time = ? where id = ";
 
@@ -33,13 +35,19 @@ public class SeanceRepoImpl implements SeanceRepo {
     }
     @Override
     public List<Seance> findAll() {
-        return jdbcTemplate.query("SELECT * FROM seance", seanceRowMapper);
+        return jdbcTemplate.query("SELECT * FROM seance;", seanceRowMapper);
     }
 
     @Override
     public Seance getSeanceById(int id) {
         try {
-            return jdbcTemplate.queryForObject(SELECT_BY_ID + id, seanceRowMapper);
+
+             return jdbcTemplate.query((Connection c) -> {
+                PreparedStatement preparedStatement = c.prepareStatement(SELECT_BY_ID);
+                preparedStatement.setInt(1, id);
+                return preparedStatement;
+            },seanceRowMapper).get(0);
+
         }
         catch (EmptyResultDataAccessException e) {
             System.out.println("We don't have this seance");
@@ -59,12 +67,24 @@ public class SeanceRepoImpl implements SeanceRepo {
 
     @Override
     public void deleteSeance(int seanceId) {
+        GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
 
+        jdbcTemplate.update((Connection c) -> {
+            PreparedStatement preparedStatement = c.prepareStatement(DELETE,Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setInt(1, seanceId);
+            return preparedStatement;
+        }, generatedKeyHolder);
     }
 
     @Override
     public List<Seance> findAll(Page page) {
-        return null;
+
+        return jdbcTemplate.query((Connection c) -> {
+            PreparedStatement preparedStatement = c.prepareStatement(SELECT_BY_PAGE);
+            preparedStatement.setInt(1, page.getPageSize());
+            preparedStatement.setInt(2, page.getPageNumber() * page.getPageSize());
+            return preparedStatement;
+        },seanceRowMapper);
     }
 
     @Override
