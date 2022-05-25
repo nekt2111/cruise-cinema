@@ -2,10 +2,14 @@ package com.example.lab2cinema.repo;
 
 import com.example.lab2cinema.model.Ticket;
 import com.example.lab2cinema.model.TicketStatus;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
+@Primary
 public class TicketRepoImpl implements TicketRepo{
     @Override
     public List<Ticket> findTicketsBySeanceId(Integer seanceId) {

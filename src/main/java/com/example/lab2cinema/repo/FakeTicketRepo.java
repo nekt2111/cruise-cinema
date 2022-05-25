@@ -1,6 +1,7 @@
 package com.example.lab2cinema.repo;
 
 import com.example.lab2cinema.model.Place;
+import com.example.lab2cinema.model.Seance;
 import com.example.lab2cinema.model.Ticket;
 import com.example.lab2cinema.model.TicketStatus;
 import org.springframework.stereotype.Repository;
@@ -35,7 +36,9 @@ public class FakeTicketRepo implements TicketRepo{
 
 
             final var place = Place.fromNumber(i, maxColumn);
-            final var ticket = new Ticket(i, place, seanceId, DEFAULT_PRICE, TicketStatus.NotBought,null);
+
+            //todo: refactor
+            final var ticket = new Ticket(i, place, new Seance(), DEFAULT_PRICE, TicketStatus.NotBought,null);
 
             tickets.add(ticket);
         }
