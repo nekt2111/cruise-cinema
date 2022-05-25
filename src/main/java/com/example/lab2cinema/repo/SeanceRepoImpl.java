@@ -22,6 +22,7 @@ public class SeanceRepoImpl implements SeanceRepo {
     private SeanceMapper seanceRowMapper = new SeanceMapper();
 
     private static final String SELECT_BY_ID = "SELECT * FROM seance WHERE id = ?;";
+    private static final String FILTER = "SELECT * FROM seance WHERE ? = ?;";
     private static final String SELECT_BY_PAGE = "SELECT * FROM seance LIMIT ? OFFSET ?";
     private static final String INSERT = "INSERT INTO seance(name, description,date,time) values (?,?,?,?);";
     private static final String DELETE = "DELETE FROM seance WHERE id = ?;";
@@ -103,5 +104,24 @@ public class SeanceRepoImpl implements SeanceRepo {
     @Override
     public List<Seance> findAll(Filter filter) {
         return null;
+    }
+
+    public List<Seance> findAllSmart(Filter filter) {
+        return jdbcTemplate.query((Connection c) -> {
+            PreparedStatement preparedStatement = c.prepareStatement(FILTER,Statement.RETURN_GENERATED_KEYS);
+
+            String field = filter.getFieldName();
+
+            preparedStatement.setString(1, field);
+
+            String value = seance.getValue();
+
+            if (field.Equals("name") || field.Equals("description")) {
+                value = '\'' + value + '\'';
+            }
+
+            preparedStatement.setString(2,);
+            return preparedStatement;
+        }, seanceRowMapper);
     }
 }
