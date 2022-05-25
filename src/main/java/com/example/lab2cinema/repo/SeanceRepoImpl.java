@@ -82,15 +82,34 @@ public class SeanceRepoImpl implements SeanceRepo {
         return jdbcTemplate.query((Connection c) -> {
             PreparedStatement preparedStatement = c.prepareStatement(SELECT_BY_PAGE);
             preparedStatement.setInt(1, page.getPageSize());
-            preparedStatement.setInt(2, page.getPageNumber() * page.getPageSize());
+            preparedStatement.setInt(2, (page.getPageNumber()) * page.getPageSize());
             return preparedStatement;
         },seanceRowMapper);
     }
 
     @Override
     public List<Seance> findAll(Filter filter) {
-       // String filetSql = SELECT_ALL + " WHERE " + filter.getFieldName() + " = " + filter.getValue();
-        return null;
+        return jdbcTemplate.query((Connection c) -> {
+            PreparedStatement preparedStatement;
+
+            switch (filter.getFieldName()) {
+                case "name":
+                    preparedStatement = c.prepareStatement(SELECT_ALL + " where name = ?");
+                    preparedStatement.setNString(1,filter.getValue());
+                    break;
+                case "date":
+                    preparedStatement = c.prepareStatement(SELECT_ALL + " where date = ?");
+                    preparedStatement.setDate(1,Date.valueOf(filter.getValue()));
+                    break;
+                case "time":
+                    preparedStatement = c.prepareStatement(SELECT_ALL + " where time = ?");
+                    preparedStatement.setTime(1,Time.valueOf(filter.getValue()));
+                    break;
+                default:
+                    preparedStatement = c.prepareStatement(SELECT_ALL);
+            }
+            return preparedStatement;
+        },seanceRowMapper);
     }
 
     private Seance updateSeanceTable(Seance seance, String SQL, boolean isKeyGenerated){
