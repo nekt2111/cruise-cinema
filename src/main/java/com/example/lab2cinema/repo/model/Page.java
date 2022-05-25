@@ -19,6 +19,10 @@ public class Page {
     }
 
     public static Page createFromStrings(String pageNumber){
-        return new Page(Integer.parseInt(pageNumber),DEFAULT_PAGE_SIZE);
+        Integer pageNumberInt = Integer.parseInt(pageNumber);
+        if (pageNumberInt <= 0){
+            pageNumberInt = 1;
+        }
+        return new Page(pageNumberInt - 1,DEFAULT_PAGE_SIZE);
     }
 }
