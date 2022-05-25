@@ -8,7 +8,7 @@ import lombok.Data;
 public class Ticket {
     private int number;
     private Place place;
-    private int seanceId;
+    private Seance seance;
     private int price;
     private TicketStatus status;
     private String userEmail;
