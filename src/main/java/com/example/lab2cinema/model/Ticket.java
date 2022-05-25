@@ -17,7 +17,7 @@ public class Ticket {
 
     public static final int DEFAULT_PRICE = 100;
 
-    public boolean isBought(){
-        return this.getStatus() == TicketStatus.Bought;
+    public static boolean isBought(Ticket ticket){
+        return ticket.getStatus() == TicketStatus.Bought;
     }
 }

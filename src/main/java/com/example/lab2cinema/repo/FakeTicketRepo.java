@@ -59,6 +59,11 @@ public class FakeTicketRepo implements TicketRepo{
     }
 
     @Override
+    public void updateTicketBuyerEmail(Integer seanceId, Integer ticketNumber, String email) {
+
+    }
+
+    @Override
     public Optional<Ticket> findTicketByNumber(Integer seanceId, Integer number) {
         return null;
     }

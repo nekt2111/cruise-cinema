@@ -29,10 +29,12 @@ public class TicketRepoImpl implements TicketRepo {
 
     private static final String SELECT_BY_SEANCE_ID = "SELECT * FROM ticket WHERE seance_id = ?;";
     private static final String SELECT_BY_SEANCE_ID_AND_NUMBER = "SELECT * FROM ticket WHERE seance_id = ? AND number = ?;";
-    private static final String UPDATE_PRICE = "UPDATE ticket SET price = ? WHERE seanceId = ?;";
+    private static final String UPDATE_PRICE = "UPDATE ticket SET price = ? WHERE seance_id = ?;";
     private static final String DELETE_BY_SEANCE_ID = "DELETE from ticket where seance_id = ?";
     private static final String INSERT_TICKET = "INSERT INTO ticket(number,seance_id,price,ticket_status,user_email) values (?,?,?,?,?)";
-    private static final String UPDATE_STATUS = "UPDATE ticket SET ticket_status = ? WHERE seanceId = ? AND number = ?;";
+    private static final String UPDATE_STATUS = "UPDATE ticket SET ticket_status = ? WHERE seance_id = ? AND number = ?;";
+
+    private static final String UPDATE_EMAIL = "UPDATE ticket SET user_email = ? WHERE seance_id = ? AND number = ?;";
 
     public TicketRepoImpl(JdbcTemplate jdbcTemplate, TicketMapper ticketMapper) {
         this.jdbcTemplate = jdbcTemplate;
@@ -86,6 +88,7 @@ public class TicketRepoImpl implements TicketRepo {
 
     @Override
     public Ticket changeTicketStatus(Integer seanceId, Integer ticketNumber, TicketStatus ticketStatus) {
+        System.out.println(ticketStatus);
             jdbcTemplate.update((Connection c) -> {
                 PreparedStatement preparedStatement = c.prepareStatement(UPDATE_STATUS);
                 preparedStatement.setInt(1, ticketStatus.toInt());
@@ -98,13 +101,24 @@ public class TicketRepoImpl implements TicketRepo {
     }
 
     @Override
-    public Optional<Tikcet> findTicketByNumber(Integer seanceId, Integer number) {
-        return jdbcTemplate.query((Connection c) -> {
+    public void updateTicketBuyerEmail(Integer seanceId, Integer ticketNumber, String email) {
+        jdbcTemplate.update((Connection c) -> {
+            PreparedStatement preparedStatement = c.prepareStatement(UPDATE_STATUS);
+            preparedStatement.setString(1, email);
+            preparedStatement.setInt(2, seanceId);
+            preparedStatement.setInt(3, ticketNumber);
+            return preparedStatement;
+        });
+    }
+
+    @Override
+    public Optional<Ticket> findTicketByNumber(Integer seanceId, Integer number) {
+         return Optional.of(jdbcTemplate.query((Connection c) -> {
             PreparedStatement preparedStatement = c.prepareStatement(SELECT_BY_SEANCE_ID_AND_NUMBER);
             preparedStatement.setInt(1, seanceId);
             preparedStatement.setInt(2, number);
             return preparedStatement;
-        },ticketMapper);
+        },ticketMapper).get(0));
     }
 
     private void deleteAllTicketWithSeanceId(Integer seanceId) {

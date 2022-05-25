@@ -5,6 +5,7 @@ import com.example.lab2cinema.model.TicketStatus;
 import com.example.lab2cinema.repo.TicketRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,7 +29,9 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Ticket buyTicket(Integer seanceId, Integer ticketNumber) {
+    @Transactional
+    public Ticket buyTicket(Integer seanceId, Integer ticketNumber,String email) {
+        ticketRepo.updateTicketBuyerEmail(seanceId,ticketNumber,email);
         return ticketRepo.changeTicketStatus(seanceId,ticketNumber, TicketStatus.Bought);
     }
 

@@ -34,9 +34,8 @@ public class RestTicketController {
 
         System.out.println(ticket);
 
-        if (!ticket.isBought()) {
-            ticket.setUserEmail(userEmail);
-            ticket = ticketService.buyTicket(seanceId, ticketNumber);
+        if (!Ticket.isBought(ticket)) {
+            ticket = ticketService.buyTicket(seanceId, ticketNumber,userEmail);
             return new ResponseEntity<Ticket>(ticket,HttpStatus.CREATED);
         }
 

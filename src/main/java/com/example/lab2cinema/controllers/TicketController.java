@@ -40,7 +40,7 @@ public class TicketController {
         model.addAttribute("seance", seanceService.findSeanceById(seanceId));
         model.addAttribute("ticket", ticket);
 
-        if (ticket.isBought()) {
+        if (Ticket.isBought(ticket)) {
             return "denyBuyTicket";
         } else {
             return "confirmBuyTicket";
@@ -57,9 +57,8 @@ public class TicketController {
 
         Ticket ticket = ticketService.getTicketByNumber(seanceId,ticketNumber);
         boolean tickedWasBought = false;
-        if(!ticket.isBought()) {
-            ticket.setUserEmail(userEmail);
-            ticketService.buyTicket(seanceId, ticketNumber);
+        if(!Ticket.isBought(ticket)) {
+            ticketService.buyTicket(seanceId, ticketNumber,userEmail);
             Seance seance = seanceService.findSeanceById(seanceId);
 
             model.addAttribute("seance", seance);

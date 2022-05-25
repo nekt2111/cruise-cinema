@@ -14,8 +14,8 @@ public enum TicketStatus {
 
     public int toInt() {
         switch (this) {
-            case NotBought: return 0;
-            case Bought: return 1;
+            case NotBought: return 1;
+            case Bought: return 2;
             default: throw new IllegalArgumentException();
         }
     }

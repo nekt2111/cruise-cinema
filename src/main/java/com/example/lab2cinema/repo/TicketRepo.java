@@ -13,6 +13,8 @@ public interface TicketRepo {
     void generateTickets(int seanceId, int amountOfTickets);
     List<Ticket> changePriceForAllTickets(int seanceId, int newPrice);
     Ticket changeTicketStatus(Integer seanceId, Integer ticketNumber, TicketStatus ticketStatus);
+
+    void updateTicketBuyerEmail(Integer seanceId, Integer ticketNumber,String email);
     Optional<Ticket> findTicketByNumber(Integer seanceId, Integer number);
 
 }
