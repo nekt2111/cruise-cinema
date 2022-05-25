@@ -15,6 +15,7 @@ public class TicketRepoImpl implements TicketRepo {
     private JdbcTemplate jdbcTemplate;
 
     private static final String SELECT_BY_SEANCE_ID = "SELECT * FROM ticket WHERE seanceId = ?;";
+    private static final String UPDATE_PRICE = "UPDATE ticket SET price = ? WHERE seanceId = ?;";
 
     public SeanceRepoImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -38,7 +39,18 @@ public class TicketRepoImpl implements TicketRepo {
 
     @Override
     public void generateTickets(int seanceId, int amountOfTickets) {
+        try {
+             return jdbcTemplate.query((Connection c) -> {
+                PreparedStatement preparedStatement = c.prepareStatement(SELECT_BY_SEANCE_ID);
+                preparedStatement.setInt(1, seanceId);
+                return preparedStatement;
+            },seanceRowMapper).get(0);
 
+        }
+        catch (EmptyResultDataAccessException e) {
+            System.out.println("Fuck you");
+            return;
+        }
     }
 
     @Override
